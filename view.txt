@@ -1,1 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefWidth="600" prefHeight="700"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.MainController">
+
+    <children>
+
+        <VBox spacing="10" layoutX="20" layoutY="20">
+
+            <!-- Label + TextField -->
+            <Label text="Imię:"/>
+            <TextField fx:id="nameField"/>
+
+            <Label text="Email:"/>
+            <TextField fx:id="emailField"/>
+
+            <Label text="Kod pocztowy:"/>
+            <TextField fx:id="zipField"/>
+
+            <!-- Password -->
+            <Label text="Hasło:"/>
+            <PasswordField fx:id="passwordField"/>
+
+            <!-- RadioButtons -->
+            <Label text="Płeć:"/>
+            <HBox spacing="10">
+                <RadioButton text="Mężczyzna" fx:id="maleRadio"/>
+                <RadioButton text="Kobieta" fx:id="femaleRadio"/>
+            </HBox>
+
+            <!-- Checkbox -->
+            <CheckBox text="Akceptuję regulamin" fx:id="termsCheck"/>
+
+            <!-- ChoiceBox -->
+            <Label text="Kraj:"/>
+            <ChoiceBox fx:id="countryChoice"/>
+
+            <!-- Spinner -->
+            <Label text="Wiek:"/>
+            <Spinner fx:id="ageSpinner"/>
+
+            <!-- Slider -->
+            <Label text="Poziom zadowolenia:"/>
+            <Slider fx:id="slider" min="0" max="100"/>
+
+            <!-- Image -->
+            <ImageView fx:id="imageView" fitWidth="200" fitHeight="150"/>
+
+            <!-- Button -->
+            <Button text="Wyślij" onAction="#handleSubmit"/>
+
+        </VBox>
+    </children>
+</AnchorPane>
