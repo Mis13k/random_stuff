@@ -1,0 +1,104 @@
+package controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ToggleGroup;
+
+public class MainController {
+
+    @FXML private TextField nameField;
+    @FXML private TextField emailField;
+    @FXML private TextField zipField;
+    @FXML private PasswordField passwordField;
+
+    @FXML private RadioButton maleRadio;
+    @FXML private RadioButton femaleRadio;
+
+    @FXML private CheckBox termsCheck;
+    @FXML private ChoiceBox<String> countryChoice;
+    @FXML private Spinner<Integer> ageSpinner;
+    @FXML private Slider slider;
+    @FXML private ImageView imageView;
+
+    private ToggleGroup genderGroup;
+
+    @FXML
+    public void initialize() {
+
+        // Radio group
+        genderGroup = new ToggleGroup();
+        maleRadio.setToggleGroup(genderGroup);
+        femaleRadio.setToggleGroup(genderGroup);
+
+        // ChoiceBox
+        countryChoice.getItems().addAll("Polska", "Niemcy", "Francja");
+
+        // Spinner
+        ageSpinner.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 120, 18)
+        );
+
+        // Image
+        imageView.setImage(new Image("https://via.placeholder.com/150"));
+    }
+
+    @FXML
+    private void handleSubmit() {
+
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String zip = zipField.getText();
+
+        // Walidacja
+        if (name.isEmpty() || email.isEmpty() || zip.isEmpty()) {
+            showAlert("Błąd", "Wypełnij wszystkie pola!");
+            return;
+        }
+
+        if (!name.matches("[A-Z].*")) {
+            showAlert("Błąd", "Imię musi zaczynać się wielką literą!");
+            return;
+        }
+
+        if (!email.contains("@")) {
+            showAlert("Błąd", "Email musi zawierać @");
+            return;
+        }
+
+        if (!zip.matches("\\d{2}-\\d{3}")) {
+            showAlert("Błąd", "Kod pocztowy musi mieć format XX-XXX");
+            return;
+        }
+
+        if (!termsCheck.isSelected()) {
+            showAlert("Błąd", "Musisz zaakceptować regulamin");
+            return;
+        }
+
+        // Pobieranie danych
+        String gender = (genderGroup.getSelectedToggle() != null)
+                ? ((RadioButton) genderGroup.getSelectedToggle()).getText()
+                : "Brak";
+
+        String message =
+                "Imię: " + name +
+                "\nEmail: " + email +
+                "\nKod: " + zip +
+                "\nPłeć: " + gender +
+                "\nKraj: " + countryChoice.getValue() +
+                "\nWiek: " + ageSpinner.getValue() +
+                "\nSlider: " + slider.getValue();
+
+        showAlert("Dane", message);
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}
