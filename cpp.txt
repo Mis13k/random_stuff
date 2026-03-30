@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+// Klasa bazowa
+class Zwierze {
+private:
+    int wiek; // hermetyzacja - pole prywatne
+
+protected:
+    string imie; // dostępne w klasach pochodnych
+
+public:
+    // Konstruktor
+    Zwierze(string i, int w) {
+        imie = i;
+        wiek = w;
+        cout << "Konstruktor Zwierze" << endl;
+    }
+
+    // Destruktor
+    virtual ~Zwierze() {
+        cout << "Destruktor Zwierze" << endl;
+    }
+
+    // Metoda publiczna
+    void pokazWiek() {
+        cout << "Wiek: " << wiek << endl;
+    }
+
+    // Metoda wirtualna (polimorfizm)
+    virtual void dajGlos() {
+        cout << "Zwierze wydaje dzwiek" << endl;
+    }
+};
+
+// Klasa pochodna
+class Pies : public Zwierze {
+public:
+    // Konstruktor klasy pochodnej
+    Pies(string i, int w) : Zwierze(i, w) {
+        cout << "Konstruktor Pies" << endl;
+    }
+
+    // Destruktor
+    ~Pies() {
+        cout << "Destruktor Pies" << endl;
+    }
+
+    // Nadpisanie metody (polimorfizm)
+    void dajGlos() override {
+        cout << imie << ": Hau hau!" << endl;
+    }
+};
+
+// Klasa pochodna
+class Kot : public Zwierze {
+public:
+    Kot(string i, int w) : Zwierze(i, w) {
+        cout << "Konstruktor Kot" << endl;
+    }
+
+    ~Kot() {
+        cout << "Destruktor Kot" << endl;
+    }
+
+    void dajGlos() override {
+        cout << imie << ": Miau!" << endl;
+    }
+};
+
+int main() {
+    // Obiekty (instancje klas)
+    Zwierze* z1 = new Pies("Reksio", 5);
+    Zwierze* z2 = new Kot("Mruczek", 3);
+
+    // Polimorfizm
+    z1->dajGlos();
+    z2->dajGlos();
+
+    z1->pokazWiek();
+    z2->pokazWiek();
+
+    delete z1;
+    delete z2;
+
+    return 0;
+}
