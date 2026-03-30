@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+// Klasa bazowa
+class Zwierze {
+public:
+    // metoda wirtualna
+    virtual void wydajDzwiek() {
+        cout << "Zwierze wydaje dzwiek" << endl;
+    }
+};
+
+// Klasa pochodna
+class Pies : public Zwierze {
+public:
+    void wydajDzwiek() override {
+        cout << "Hau hau!" << endl;
+    }
+};
+
+// Klasa pochodna
+class Kot : public Zwierze {
+public:
+    void wydajDzwiek() override {
+        cout << "Miau!" << endl;
+    }
+};
+
+int main() {
+    Zwierze* z1 = new Pies();
+    Zwierze* z2 = new Kot();
+
+    z1->wydajDzwiek(); // Hau hau!
+    z2->wydajDzwiek(); // Miau!
+
+    delete z1;
+    delete z2;
+    return 0;
+}
